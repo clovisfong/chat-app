@@ -1,14 +1,19 @@
+const dotenv = require("dotenv");
 const express = require("express")
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const { chats } = require('./data/data')
+const { chats } = require('./data/data');
+const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+const userRoutes = require('./routes/userRoutes')
 // const cors = require("cors");
 
 dotenv.config();
 const app = express()
+app.use(express.json()); // server to accept JSON data
 
-const PORT = process.env.PORT ?? 3000
+const PORT = process.env.PORT || 3000
 const MONGO_URI = process.env.MONGO_URI
+
+mongoose.set('strictQuery', true);
 
 mongoose.connection.once("open", () => {
     console.log("connected to mongoose...");
@@ -27,6 +32,9 @@ mongoose.connect(MONGO_URI, {}, () => {
 
 
 // app.use(cors());
+app.use('/api/user', userRoutes)
+
+
 
 app.get('/', (req, res) => {
     res.send('Chat app started')
@@ -43,5 +51,7 @@ app.get('/api/chat/:id', (req, res) => {
     res.send(singleChat)
 })
 
+app.use(notFound)
+app.use(errorHandler)
 
 app.listen(PORT, console.log(`express started on ${PORT}`))
