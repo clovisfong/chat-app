@@ -3,7 +3,8 @@ import axios from 'axios'
 import urlcat from 'urlcat'
 import { IChat } from '../Interface'
 
-const Chat = () => {
+const Chats = () => {
+
     const [chats, setChats] = useState<IChat[]>([])
 
     const fetchChats = async () => {
@@ -17,17 +18,17 @@ const Chat = () => {
         fetchChats()
     }, [])
 
-    return (
-        <div className="App">
-            <div>
-                {chats.map((chat) =>
-                    <div key={chat._id}>{chat.chatName}</div>)}
 
-            </div>
-            <h1 className="font-mont" >Chill Zone</h1>
-            <h1 className="font-roboto" >Chill Zone</h1>
+    return (
+
+        <div>
+            {chats.map((chat) =>
+                <div key={chat._id}>{chat.chatName}</div>)}
+
         </div>
+
+
     )
 }
 
-export default Chat
+export default Chats

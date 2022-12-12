@@ -1,34 +1,46 @@
-import React, { useState } from 'react'
-import Login from '../components/Login'
-import SignUp from '../components/SignUp'
+import React from 'react'
+import { Container, Box, Text, Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react"
+import Login from './components/Login'
+import SignUp from './components/SignUp'
 
 const Home = () => {
-    const [login, setLogin] = useState('Login')
-
-    const handleLogin = () => {
-        setLogin('Login')
-    }
-
-    const handleSignUp = () => {
-        setLogin('SignUp')
-    }
-
     return (
-        <div className='container'>
-            <div className='bg-orange text-center p-10'>
-                <h1 className='text-4xl font-mont'>Chat App</h1>
-            </div>
+        <Container maxW='xl' centerContent>
+            <Box
+                display='flex'
+                justifyContent='center'
+                p={3}
+                bg={'lightblue'}
+                w='100%'
+                m='40px 0 15px 0'
+                borderRadius='lg'
+                borderWidth='1px'
+            >
+                <Text>hello there, lets chat</Text>
+            </Box>
+            <Box
+                bg={'lightblue'}
+                w='100%'
+                p={4}
+                borderRadius='lg'
+                borderWidth='1px'>
 
-            <div className='bg-peach flex-column  p-20 pt-10'>
-                <div className='flex space-x-4 mb-10'>
-                    <button className='bg-beige p-2 px-5 w-1/2 rounded-full' onClick={handleLogin}>Login</button>
-                    <button className='bg-beige p-2 px-5 w-1/2 rounded-full' onClick={handleSignUp}>Sign Up</button>
-                </div>
-                {login === 'Login' ? <Login /> : <SignUp />}
-            </div>
-
-
-        </div>
+                <Tabs variant='soft-rounded'>
+                    <TabList mb='1em'>
+                        <Tab w='50%'>Login</Tab>
+                        <Tab w='50%'>Sign Up</Tab>
+                    </TabList>
+                    <TabPanels>
+                        <TabPanel>
+                            <Login />
+                        </TabPanel>
+                        <TabPanel>
+                            <SignUp />
+                        </TabPanel>
+                    </TabPanels>
+                </Tabs>
+            </Box>
+        </Container>
     )
 }
 
