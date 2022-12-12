@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: [
     "./index.html",
@@ -6,9 +9,28 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'blue': '#1fb6ff',
+      'orange': '#FBB04B',
+      'peach': '#F5D7AE',
+      'beige': '#FEFBF1',
+      'grey': '#8C8C8C',
+      'dark-grey': '#333333'
     },
-    extend: {},
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
+    },
+    extend: {
+      fontFamily: {
+        mont: ['"Montserrat"', ...defaultTheme.fontFamily.sans],
+        roboto: ['"Roboto"']
+      }
+    },
   },
   plugins: [],
 }

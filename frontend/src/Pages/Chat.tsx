@@ -18,10 +18,14 @@ const Chat = () => {
     }, [])
 
     return (
-        <div>
-            {chats.map((chat) =>
-                <div key={chat._id}>{chat.chatName}</div>)}
+        <div className="App">
+            <div>
+                {chats.map((chat) =>
+                    <div key={chat._id}>{chat.chatName}</div>)}
 
+            </div>
+            <h1 className="font-mont" >Chill Zone</h1>
+            <h1 className="font-roboto" >Chill Zone</h1>
         </div>
     )
 }
