@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const { chats } = require('./data/data');
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const userRoutes = require('./routes/userRoutes')
-// const cors = require("cors");
+const chatRoutes = require('./routes/chatRoutes')
+const cors = require("cors");
 
 dotenv.config();
 const app = express()
@@ -31,8 +32,9 @@ mongoose.connect(MONGO_URI, {}, () => {
 
 
 
-// app.use(cors());
+app.use(cors());
 app.use('/api/user', userRoutes)
+app.use('/api/chat', chatRoutes)
 
 
 
