@@ -9,3 +9,11 @@ export interface IChat {
     users: [IUser];
     _id: string
 }
+
+export interface IFullUser extends IUser {
+    pic: string;
+    token: string;
+    _id: string
+}
+
+
