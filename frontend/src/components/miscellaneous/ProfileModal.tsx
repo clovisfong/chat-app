@@ -13,7 +13,7 @@ import { ViewIcon } from "@chakra-ui/icons";
 import { IFullUser } from '../../Interface';
 
 type Props = {
-    children: ReactNode,
+    children?: ReactNode,
     user: IFullUser
 }
 
@@ -25,7 +25,9 @@ const ProfileModal = ({ user, children }: Props) => {
             {children ? (
                 <span onClick={onOpen}>{children}</span>
             ) : (
-                <IconButton display={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
+                <IconButton
+                    aria-label='view profile'
+                    display={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
             )}
 
             <Modal size='lg' isCentered isOpen={isOpen} onClose={onClose}>

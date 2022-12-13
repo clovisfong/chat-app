@@ -3,20 +3,18 @@ import { ChatState } from '../Context/ChatProvider'
 import { IChat, IFullUser } from '../Interface'
 import axios from 'axios'
 import urlcat from 'urlcat'
-import {
-    Tooltip, Box, Button, Text, Stack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Avatar, Drawer, useDisclosure, Input, useToast,
-    DrawerBody,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerOverlay,
-    DrawerContent,
-    DrawerCloseButton,
-} from "@chakra-ui/react"
+import { Box, Button, Text, Stack, useToast } from "@chakra-ui/react"
 import { AddIcon } from "@chakra-ui/icons";
 import ChatLoading from './ChatLoading'
 import { getSender } from '../config/ChatLogics'
+import GroupChatModal from './miscellaneous/GroupChatModal'
 
-const MyChats = () => {
+
+type Props = {
+    fetchAgain: boolean,
+}
+
+const MyChats = ({ fetchAgain }: Props) => {
     const [loggedUser, setLoggedUser] = useState({})
     const { user, selectedChat, setSelectedChat, chats, setChats }: IFullUser | any = ChatState()
     const toast = useToast()
@@ -34,7 +32,6 @@ const MyChats = () => {
 
             const url = urlcat(SERVER, '/api/chat')
             const { data } = await axios.get(url, config)
-            console.log('this', data)
             setChats(data)
 
         } catch (error) {
@@ -54,7 +51,7 @@ const MyChats = () => {
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo") || '{}'))
 
         fetchChats()
-    }, [])
+    }, [fetchAgain])
 
     return (
         <Box
@@ -78,14 +75,16 @@ const MyChats = () => {
                 alignItems="center"
             >
                 My Chats
+                <GroupChatModal>
 
-                <Button
-                    display="flex"
-                    fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-                    rightIcon={<AddIcon />}
-                >
-                    New Group Chat
-                </Button>
+                    <Button
+                        display="flex"
+                        fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+                        rightIcon={<AddIcon />}
+                    >
+                        New Group Chat
+                    </Button>
+                </GroupChatModal>
             </Box>
 
 
