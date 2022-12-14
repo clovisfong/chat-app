@@ -20,9 +20,10 @@ import UserListItem from '../UserAvatar/UserListItem';
 type Props = {
   fetchAgain: boolean,
   setFetchAgain: (state: boolean) => void
+  fetchMessages: () => void
 }
 
-const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }: Props) => {
+const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }: Props) => {
 
   const [groupChatName, setGroupChatName] = useState('')
   const [search, setSearch] = useState()
@@ -68,6 +69,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }: Props) => {
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data)
 
       setFetchAgain(!fetchAgain)
+      fetchMessages()
       setLoading(false)
 
 
