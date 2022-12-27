@@ -22,13 +22,13 @@ const MyChats = ({ fetchAgain }: Props) => {
 
 
     const fetchChats = async () => {
-
         try {
             const config = {
                 headers: {
                     Authorization: `Bearer ${user.token}`
                 }
             }
+            console.log
 
             const url = urlcat(SERVER, '/api/chat')
             const { data } = await axios.get(url, config)
@@ -48,6 +48,7 @@ const MyChats = ({ fetchAgain }: Props) => {
     }
 
     useEffect(() => {
+
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo") || '{}'))
 
         fetchChats()

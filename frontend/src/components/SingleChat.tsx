@@ -15,7 +15,7 @@ import ScrollableChat from './ScrollableChat';
 
 
 import io from 'socket.io-client'
-const ENDPOINT = "https://chat-app-backend-ubqx.onrender.com/" // to be replace with heroku link for production
+const ENDPOINT = "https://chat-app-backend-ubqx.onrender.com/" // to be replace with server link for production
 var socket: any, selectedChatCompare: any;
 
 type Props = {
