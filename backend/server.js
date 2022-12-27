@@ -43,21 +43,21 @@ app.use('/api/message', messageRoutes)
 
 ///////////////// DEPLOYMENT /////////////////
 
-const __dirname1 = path.resolve()
-console.log(path.join(__dirname1, "../frontend/dist"))
-if (process.env.NODE_ENV = 'production') {
-    // static files (build of your frontend)
-    app.use(express.static(path.join(__dirname1, "../frontend/dist")))
+// const __dirname1 = path.resolve()
+// console.log(path.join(__dirname1, "../frontend/dist"))
+// if (process.env.NODE_ENV = 'production') {
+//     // static files (build of your frontend)
+//     app.use(express.static(path.join(__dirname1, "../frontend/dist")))
 
-    // Route set up for browser to get index.html file 
-    app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname1, "../frontend/dist/index.html"))
-    })
-} else {
-    app.get('/', (req, res) => {
-        res.send('API is running')
-    })
-}
+//     // Route set up for browser to get index.html file 
+//     app.get("*", (req, res) => {
+//         res.sendFile(path.join(__dirname1, "../frontend/dist/index.html"))
+//     })
+// } else {
+app.get('/', (req, res) => {
+    res.send('API is running')
+})
+// }
 
 // app.get('/api/chat', (req, res) => {
 //     res.send(chats)
