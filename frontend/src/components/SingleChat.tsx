@@ -11,7 +11,7 @@ import axios from 'axios'
 import { IMessages } from '../Interface';
 import './styles.css'
 import ScrollableChat from './ScrollableChat';
-import { Player } from '@lottiefiles/react-lottie-player';
+// import { Player } from '@lottiefiles/react-lottie-player';
 
 
 import io from 'socket.io-client'
@@ -239,14 +239,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: Props) => {
                             mt={3}>
 
                             {isTyping ?
-                                <Player
-                                    src='https://assets4.lottiefiles.com/packages/lf20_SCdC0F.json'
-                                    loop
-                                    autoplay
-                                    style={{ height: '70px', width: '70px' }}
-                                >
+                                // <Player
+                                //     src='https://assets4.lottiefiles.com/packages/lf20_SCdC0F.json'
+                                //     loop
+                                //     autoplay
+                                //     style={{ height: '70px', width: '70px' }}
+                                // >
 
-                                </Player> : (<></>)}
+                                // </Player> 
+                                <div>loading..</div>
+                                : (<></>)}
                             <Input
                                 variant="filled"
                                 bg="#E0E0E0"
