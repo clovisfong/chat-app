@@ -15,7 +15,7 @@ import ScrollableChat from './ScrollableChat';
 
 
 import io from 'socket.io-client'
-const ENDPOINT = "http://localhost:3000" // to be replace with heroku link for production
+const ENDPOINT = "https://chat-app-rouge.vercel.app/" // to be replace with heroku link for production
 var socket: any, selectedChatCompare: any;
 
 type Props = {
