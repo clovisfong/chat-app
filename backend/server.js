@@ -72,7 +72,7 @@ app.use(errorHandler)
 
 
 const PORT = process.env.PORT || 3000
-const server = app.listen(PORT, console.log(`express started on ${PORT}`))
+const server = app.listen(PORT, "0.0.0.0", console.log(`express started on ${PORT}`))
 
 
 ///////////////// SOCKET.IO /////////////////
@@ -80,7 +80,7 @@ const server = app.listen(PORT, console.log(`express started on ${PORT}`))
 const io = require("socket.io")(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "https://chat-app-theta-seven.vercel.app/",
+        origin: "https://chat-app-backend-ubqx.onrender.com/",
         // credentials: true,
     },
 });
