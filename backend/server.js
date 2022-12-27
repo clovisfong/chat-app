@@ -42,16 +42,16 @@ app.use('/api/message', messageRoutes)
 
 
 ///////////////// DEPLOYMENT /////////////////
-console.log(path.resolve(__dirname))
 
 const __dirname1 = path.resolve()
+console.log(path.join(__dirname1, "../frontend/dist"))
 if (process.env.NODE_ENV = 'production') {
     // static files (build of your frontend)
-    app.use(express.static(path.join(__dirname1, "/frontend/dist")))
+    app.use(express.static(path.join(__dirname1, "../frontend/dist")))
 
     // Route set up for browser to get index.html file 
     app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname1, "frontend", "dist", "index.html"))
+        res.sendFile(path.join(__dirname1, "../frontend/dist/index.html"))
     })
 } else {
     app.get('/', (req, res) => {
