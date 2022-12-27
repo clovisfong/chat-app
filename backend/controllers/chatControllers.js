@@ -85,16 +85,17 @@ const createGroupChat = asyncHandler(async (req, res) => {
     if (!req.body.users || !req.body.name) {
         return res.status(400).send({ message: 'Please fill all the fields' })
     }
-
+    console.log('before', req.body.users)
     var users = JSON.parse(req.body.users)
-
+    console.log('after', users)
     if (users.length < 2) {
         return res
             .status(400)
             .send("More than 2 users are required to form a group chat");
     }
+    // push all members id only but for owner is full details
     users.push(req.user)
-
+    console.log('next', users)
     try {
         const groupChat = await Chat.create({
             chatName: req.body.name,

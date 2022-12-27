@@ -20,10 +20,10 @@ const sendMessage = asyncHandler(async (req, res) => {
     try {
         var message = await Message.create(newMessage)
 
-        // populating the instance of the mongoose class
+        // populate other schemas
         message = await message.populate("sender", "name pic")
         message = await message.populate("chat")
-        console.log('1st', message)
+        // further populate schema of other schemas
         message = await User.populate(message, {
             path: 'chat.users',
             select: "name pic email"
