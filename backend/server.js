@@ -80,8 +80,9 @@ const server = app.listen(PORT, "0.0.0.0", console.log(`express started on ${POR
 const io = require("socket.io")(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "https://chat-app-backend-ubqx.onrender.com/",
-        // credentials: true,
+        origin: "https://chat-app-theta-seven.vercel.app/",
+        methods: ["GET", "POST"],
+        credentials: true,
     },
 });
 
