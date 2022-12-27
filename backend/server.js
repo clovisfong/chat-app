@@ -43,6 +43,7 @@ app.use('/api/message', messageRoutes)
 
 ///////////////// DEPLOYMENT /////////////////
 console.log(path.resolve(__dirname))
+
 const __dirname1 = path.resolve()
 if (process.env.NODE_ENV = 'production') {
     // static files (build of your frontend)
