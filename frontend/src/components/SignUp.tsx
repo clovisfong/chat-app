@@ -129,6 +129,8 @@ const SignUp = () => {
         }
     }
 
+
+
     return (
         <VStack spacing='5px'>
 

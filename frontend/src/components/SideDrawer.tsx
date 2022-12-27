@@ -17,6 +17,7 @@ import urlcat from 'urlcat'
 import axios from 'axios'
 import ChatLoading from './ChatLoading';
 import UserListItem from './UserAvatar/UserListItem';
+import { getSender } from '../config/ChatLogics';
 
 
 const SideDrawer = () => {
@@ -28,7 +29,7 @@ const SideDrawer = () => {
     const toast = useToast()
 
 
-    const { user, setSelectedChat, chats, setChats }: IFullUser | any = ChatState()
+    const { user, setSelectedChat, chats, setChats, notification, setNotification }: IFullUser | any = ChatState()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const SERVER = import.meta.env.VITE_SERVER
 
@@ -76,7 +77,7 @@ const SideDrawer = () => {
         }
     }
 
-
+    console.log('noti in side drawer', notification)
 
     const accessChat = async (userId: string) => {
         try {
@@ -137,6 +138,23 @@ const SideDrawer = () => {
                         <MenuButton p={1}>
                             <BellIcon fontSize='2xl' m={1} />
                         </MenuButton>
+                        <MenuList pl={2}>
+                            {!notification.length && "No New Messages"}
+                            {notification.map((notif: any) => (
+                                <MenuItem
+                                    key={notif._id}
+                                    onClick={() => {
+                                        setSelectedChat(notif.chat);
+                                        setNotification(notification.filter((n: any) => n !== notif));
+                                    }}
+                                >
+                                    {notif.chat.isGroupChat
+                                        ? `New Message in ${notif.chat.chatName}`
+                                        : `New Message from ${getSender(user, notif.chat.users)}`}
+                                </MenuItem>
+                            ))}
+                        </MenuList>
+
                     </Menu>
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>

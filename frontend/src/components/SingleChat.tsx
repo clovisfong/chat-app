@@ -11,6 +11,12 @@ import axios from 'axios'
 import { IMessages } from '../Interface';
 import './styles.css'
 import ScrollableChat from './ScrollableChat';
+import { Player } from '@lottiefiles/react-lottie-player';
+
+
+import io from 'socket.io-client'
+const ENDPOINT = "http://localhost:3000" // to be replace with heroku link for production
+var socket: any, selectedChatCompare: any;
 
 type Props = {
     fetchAgain: boolean,
@@ -21,9 +27,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: Props) => {
     const [messages, setMessages] = useState<IMessages[]>([])
     const [loading, setLoading] = useState(false)
     const [newMessage, setNewMessage] = useState('')
+    const [socketConnected, setSocketConnected] = useState(false)
+    const [typing, setTyping] = useState(false)
+    const [isTyping, setIsTyping] = useState(false)
+
     const toast = useToast()
 
-    const { selectedChat, setSelectedChat, user }: any = ChatState()
+    const { selectedChat, setSelectedChat, user, notification, setNotification }: any = ChatState()
 
     const SERVER = import.meta.env.VITE_SERVER
 
@@ -46,6 +56,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: Props) => {
             console.log(messages)
             setMessages(data)
             setLoading(false)
+
+            socket.emit('join chat', selectedChat._id)
+
         } catch (error) {
             toast({
                 title: 'Error Occured!',
@@ -58,12 +71,45 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: Props) => {
         }
     }
 
+    // initialise socket first 
+    useEffect(() => {
+        socket = io(ENDPOINT);
+        socket.emit("setup", user);
+        socket.on("connected", () => setSocketConnected(true));
+        socket.on("typing", () => setIsTyping(true));
+        socket.on("stop typing", () => setIsTyping(false));
+
+    }, [])
+
+
     useEffect(() => {
         fetchMessages()
+
+        selectedChatCompare = selectedChat
     }, [selectedChat])
 
+    // retrieve message and send out notifications to the respective users
+    useEffect(() => {
+        socket.on("message received", (newMessageReceived: any) => {
+            if (
+                !selectedChatCompare ||
+                selectedChatCompare._id !== newMessageReceived.chat._id
+            ) {
+                if (!notification.includes(newMessageReceived)) {
+                    setNotification([newMessageReceived, ...notification])
+                    setFetchAgain(!fetchAgain)
+                    // console.log('received noti', newMessageReceived)
+                }
+            } else {
+                setMessages([...messages, newMessageReceived])
+            }
+        })
+    })
+
+    // console.log('see', notification)
     const sendMessage = async (event: any) => {
         if (event.key === 'Enter' && newMessage) {
+            socket.emit('stop typing', selectedChat._id)
             try {
                 const config = {
                     headers: {
@@ -79,10 +125,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: Props) => {
                     chatId: selectedChat._id
                 }, config)
 
-
-
-
-                setMessages([...messages, data])
+                console.log('this msg', data)
+                socket.emit("new message", data);
+                setMessages([...messages, data]);
 
 
             } catch (error) {
@@ -98,10 +143,28 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: Props) => {
         }
     }
 
+
     const typingHandler = (e: any) => {
         setNewMessage(e.target.value)
 
+        if (!socketConnected) return
 
+        if (!typing) {
+            setTyping(true)
+            socket.emit('typing', selectedChat._id)
+        }
+
+        let lastTypingTime = new Date().getTime()
+        var timerLength = 3000
+        setTimeout(() => {
+            var timeNow = new Date().getTime()
+            var timeDiff = timeNow - lastTypingTime
+            if (timeDiff >= timerLength && typing) {
+                socket.emit('stop typing', selectedChat._id)
+                setTyping(false)
+            }
+
+        }, timerLength)
     }
 
 
@@ -175,6 +238,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: Props) => {
                             isRequired
                             mt={3}>
 
+                            {isTyping ?
+                                <Player
+                                    src='https://assets4.lottiefiles.com/packages/lf20_SCdC0F.json'
+                                    loop
+                                    autoplay
+                                    style={{ height: '70px', width: '70px' }}
+                                >
+
+                                </Player> : (<></>)}
                             <Input
                                 variant="filled"
                                 bg="#E0E0E0"

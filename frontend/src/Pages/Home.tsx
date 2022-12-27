@@ -3,6 +3,8 @@ import { Container, Box, Text, Tabs, Tab, TabList, TabPanels, TabPanel } from "@
 import { useNavigate } from 'react-router-dom'
 import Login from '../components/Login'
 import SignUp from '../components/SignUp'
+import axios from 'axios'
+import urlcat from 'urlcat'
 
 const Home = () => {
 
@@ -17,6 +19,19 @@ const Home = () => {
     //     }
 
     // }, [])
+
+    const SERVER = import.meta.env.VITE_SERVER
+
+    const url = urlcat(SERVER, '/')
+
+    const fetchChats = async () => {
+        const data = await axios.get(url)
+        console.log(data)
+    }
+
+    useEffect(() => {
+        fetchChats()
+    }, [])
 
     return (
         <Container maxW='xl' centerContent>

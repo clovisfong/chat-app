@@ -14,7 +14,7 @@ export const isSameSender = (messages: any, m: any, i: any, userId: any) => {
         i < messages.length - 1 && // is correct, true
         (messages[i + 1].sender._id !== m.sender._id || // next msg is not same sender, true
             messages[i + 1].sender._id === undefined) &&
-        messages[i].sender._id !== userId //is third party, true
+        messages[i].sender._id !== userId //is not the login user, true
     );
 };
 
