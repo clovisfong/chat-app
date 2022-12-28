@@ -8,8 +8,9 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
+    background,
 } from "@chakra-ui/react"
-import { ViewIcon } from "@chakra-ui/icons";
+import { SettingsIcon } from "@chakra-ui/icons";
 import { IFullUser } from '../../Interface';
 
 type Props = {
@@ -25,16 +26,15 @@ const ProfileModal = ({ user, children }: Props) => {
             {children ? (
                 <span onClick={onOpen}>{children}</span>
             ) : (
-                <IconButton
-                    aria-label='view profile'
-                    display={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
+
+                <SettingsIcon onClick={onOpen} cursor="pointer" />
             )}
 
             <Modal size='lg' isCentered isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent h='400px'>
                     <ModalHeader
-                        fontSize="40px"
+                        fontSize="25px"
                         fontFamily='Work sans'
                         display="flex"
                         justifyContent='center'
@@ -53,7 +53,7 @@ const ProfileModal = ({ user, children }: Props) => {
                             alt={user.name}
                         />
                         <Text
-                            fontSize={{ base: '28px', md: '30px' }}
+                            fontSize={{ base: '20px' }}
                             fontFamily='Work sans'
                         >
                             Email: {user.email}

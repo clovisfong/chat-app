@@ -14,7 +14,7 @@ const ScrollableChat = ({ messages }: Props) => {
     const { user }: any = ChatState()
 
     return (
-        <div style={{ overflowX: "hidden", overflowY: "auto" }}>
+        <div >
 
             {messages && messages.map((m, i) => (
                 <div style={{ display: 'flex' }} key={m._id} >
@@ -33,11 +33,11 @@ const ScrollableChat = ({ messages }: Props) => {
                         )}
                     <span
                         style={{
-                            backgroundColor: `${m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
+                            backgroundColor: `${m.sender._id === user._id ? "#F1FDD8" : "#FFFFFF"
                                 }`,
                             marginLeft: isSameSenderMargin(messages, m, i, user._id),
-                            marginTop: isSameUser(messages, m, i) ? 3 : 10,
-                            borderRadius: "20px",
+                            marginTop: isSameUser(messages, m, i) ? 6 : 14,
+                            borderRadius: "7px",
                             padding: "5px 15px",
                             maxWidth: "75%",
                         }}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import {
   useDisclosure, Button, Image, Box, useToast, FormControl, Input, IconButton, Spinner,
   Modal,
@@ -9,7 +9,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react"
-import { ViewIcon } from "@chakra-ui/icons";
+import { SettingsIcon } from "@chakra-ui/icons";
 import { ChatState } from '../../Context/ChatProvider';
 import { IFullUser } from '../../Interface';
 import UserBadgeItem from '../UserAvatar/UserBadgeItem';
@@ -21,9 +21,10 @@ type Props = {
   fetchAgain: boolean,
   setFetchAgain: (state: boolean) => void
   fetchMessages: () => void
+  children?: ReactNode
 }
 
-const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }: Props) => {
+const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages, children }: Props) => {
 
   const [groupChatName, setGroupChatName] = useState('')
   const [search, setSearch] = useState()
@@ -215,18 +216,19 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }: Prop
 
   return (
     <>
-      <IconButton
-        aria-label='Open Group Chat Settings'
-        display={{ base: 'flex' }}
-        icon={<ViewIcon />}
-        onClick={onOpen} />
 
+      {children ? (
+        <span onClick={onOpen}>{children}</span>
+      ) : (
+
+        <SettingsIcon onClick={onOpen} cursor="pointer" />
+      )}
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
 
           <ModalHeader
-            fontSize="35px"
+            fontSize="25px"
             fontFamily="Work sans"
             display="flex"
             justifyContent="center"

@@ -3,8 +3,7 @@ import axios from 'axios'
 import urlcat from 'urlcat'
 import { IChat } from '../Interface'
 import { ChatState } from '../Context/ChatProvider'
-import { Box } from "@chakra-ui/react"
-import SideDrawer from '../components/SideDrawer'
+import { Box, Stack } from "@chakra-ui/react"
 import MyChats from '../components/MyChats'
 import ChatBox from '../components/ChatBox'
 
@@ -16,14 +15,9 @@ const Chats = () => {
 
     return (
 
-        <div style={{ width: '100%' }}>
-            {user && <SideDrawer />}
+        <div >
             <Box
                 display='flex'
-                justifyContent='space-between'
-                w='100%'
-                h='91.5vh'
-                p='10px'
             >
                 {user && <MyChats fetchAgain={fetchAgain} />}
                 {user && <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />}

@@ -1,6 +1,8 @@
 .messages {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     overflow-y: scroll;
     scrollbar-width: none;
+    background-image: linear-gradient(185deg, #E0DEE353, #9C8DAF37);
+    padding: 15px
 }

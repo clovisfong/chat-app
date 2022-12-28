@@ -8,6 +8,13 @@ export interface IChat {
     isGroupChat: boolean;
     users: [IUser];
     _id: string
+    latestMessage: IChatMessage
+}
+
+export interface IChatMessage {
+    chat: string;
+    content: string;
+    _id: string
 }
 
 export interface IFullUser extends IUser {
